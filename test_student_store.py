@@ -64,7 +64,7 @@ class TestItem(unittest.TestCase):
         Fix: change sell(-1) to the correct value that triggers the error.
         """
         with self.assertRaises(ValueError):
-            self.pen.sell(1)          # ← BUG: 1 is a valid quantity, not negative
+            self.pen.sell(-10)          # ← BUG: 1 is a valid quantity, not negative
 
     # ── apply_discount ───────────────────────────────────────
 
@@ -87,7 +87,7 @@ class TestItem(unittest.TestCase):
         Fix: pass a value above 100 to trigger the error.
         """
         with self.assertRaises(ValueError):
-            self.pen.apply_discount(50)   # ← BUG: 50% is a valid discount
+            self.pen.apply_discount(120)   # ← BUG: 50% is a valid discount
 
 
 class TestStoreFunctions(unittest.TestCase):
@@ -144,7 +144,7 @@ class TestStoreFunctions(unittest.TestCase):
         Searching for 'note' should find 'Notebook'.
         Fix: change the keyword to something that actually matches.
         """
-        result = search(self.items, "xyz")   # ← BUG: 'xyz' matches nothing
+        result = search(self.items, "note")   # ← BUG: 'xyz' matches nothing
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0].name, "Notebook")
 
